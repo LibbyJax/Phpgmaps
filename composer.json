@@ -17,6 +17,10 @@
     {
       "name": "Michael Hopkins",
       "role": "developer"
+    },
+    {
+      "name": "Matthew Libby",
+      "role": "developer"
     }
   ],
   "require": {

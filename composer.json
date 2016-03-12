@@ -25,7 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "LibbyJax\\Phpgmaps\\": "src/LibbyJax/Phpgmaps/"
+      "LibbyJax\\Phpgmaps\\": "src/GeneaLabs/Phpgmaps/"
     }
   },
   "extra": {

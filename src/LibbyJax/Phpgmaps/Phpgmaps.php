@@ -1141,11 +1141,14 @@ class Phpgmaps
         }
 
         $this->output_js_contents .= '
-			var '.$this->map_name.'; // Global declaration of the map
-			var lat_longs_'.$this->map_name.' = new Array();
-			var markers_'.$this->map_name.' = new Array();
-            var iw_'.$this->map_name.';
-			';
+		var '.$this->map_name.'; // Global declaration of the map
+		var lat_longs_'.$this->map_name.' = new Array();
+		var markers_'.$this->map_name.' = new Array();
+            	var iw_'.$this->map_name.';
+		var filter_markers = new Array();
+		var trafficLayer;
+		var userLatLng;
+		';
         if ($this->cluster) {
             $this->output_js_contents .= 'var markerCluster;
 			';

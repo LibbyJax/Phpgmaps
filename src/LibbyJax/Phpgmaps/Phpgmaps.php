@@ -320,12 +320,26 @@ class Phpgmaps
 				label: "'.$marker['label'].'"';
         }
 
-
-
         $marker_output .= '
 			};
 			marker_'.$marker_id.' = createMarker_'.$this->map_name.'(markerOptions);
 			';
+
+	// Added by MLibby for additional data points added to the markers
+	if ($marker['filter_category']!="") {
+		$marker_output.= '
+		marker_'.$marker_id.'.filterID = \''.$marker['filter_category'].'\';
+		filter_markers.push(marker_'.$marker_id.');
+		';
+	}
+		
+	if ($marker['data_id']!="") {
+		$marker_output.= '
+		marker_'.$marker_id.'.dataID = \''.$marker['data_id'].'\';
+		';
+	}
+	// End data points code changes
+
 
         if ($marker['infowindow_content'] != "") {
 

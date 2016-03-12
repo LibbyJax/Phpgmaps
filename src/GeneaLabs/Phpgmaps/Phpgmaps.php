@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\Phpgmaps;
+<?php namespace LibbyJax\Phpgmaps;
 
 class Phpgmaps
 {
@@ -45,7 +45,7 @@ class Phpgmaps
     public $language = '';                        // The map will by default load in the language of the browser. This can be overriden however here. For a full list of codes see https://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1
     public $loadAsynchronously = false;                    // Load the map and API asynchronously once the page has loaded
     public $map_div_id = "map_canvas";                // The ID of the <div></div> that is output which contains the map
-    public $map_height = "450px";                    // The height of the map container. Any units (ie 'px') can be used. If no units are provided 'px' will be presumed
+    public $map_height = "600px";                    // The height of the map container. Any units (ie 'px') can be used. If no units are provided 'px' will be presumed
     public $map_name = "map";                    // The JS reference to the map. Currently not used but to be used in the future when multiple maps are supported
     public $map_type = "ROADMAP";                // The default MapType. Values accepted are 'HYBRID', 'ROADMAP', 'SATELLITE' or 'TERRAIN'
     public $map_types_available = array();                    // The other MapTypes available for selection on the map
@@ -179,6 +179,8 @@ class Phpgmaps
         $marker['position'] = '';                                // The position (lat/long co-ordinate or address) at which the marker will appear
         $marker['infowindow_content'] = '';                        // If not blank, creates an infowindow (aka bubble) with the content provided. Can be plain text or HTML
         $marker['id'] = '';                                        // The unique identifier of the marker suffix (ie. marker_yourID). If blank, this will default to marker_X where X is an incremental number
+	$marker['filter_category'] = '';		// Defines filtering category to assign to created marker - MLibby 11-11-2013
+	$marker['data_id'] = '';// Defines data ID number assigned to the created marker - MLibby 12-31-2013
         $marker['clickable'] = true;                            // Defines if the marker is clickable
         $marker['cursor'] = '';                                    // The name or url of the cursor to display on hover
         $marker['draggable'] = false;                            // Defines if the marker is draggable

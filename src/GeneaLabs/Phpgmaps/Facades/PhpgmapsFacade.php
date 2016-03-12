@@ -1,4 +1,4 @@
-<?php namespace GeneaLabs\Phpgmaps\Facades;
+<?php namespace LibbyJax\Phpgmaps\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

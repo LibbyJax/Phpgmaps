@@ -1,6 +1,6 @@
-<?php namespace GeneaLabs\Phpgmaps;
+<?php namespace LibbyJax\Phpgmaps;
 
-use GeneaLabs\Phpgmaps\Facades\PhpgmapsFacade;
+use LibbyJax\Phpgmaps\Facades\PhpgmapsFacade;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 

@@ -2169,7 +2169,72 @@ class Phpgmaps
                 }
             }
         }
+	$this->output_js .= '
+function locError(error) {
+	alert("The current position could not be found!");
+}
 
+function setCurrentPosition(pos) {
+	currentPositionMarker = new google.maps.Marker({
+		map: map,
+		position: new google.maps.LatLng(
+			pos.coords.latitude,
+			pos.coords.longitude
+		),
+		icon: "/dist/img/markers/red_male_map_marker.png",
+		title: "Current Position"
+	});
+
+	var userLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);	
+
+	currentCircle = new google.maps.Circle({
+  		center: userLatLng,
+  		radius: pos.coords.accuracy,
+  		map: map,
+  		fillColor: "#99bbff",
+  		fillOpacity: 0.5,
+  		strokeColor: "#80aaff",
+  		strokeOpacity: 1.0
+  	});
+	
+	map.panTo(new google.maps.LatLng(
+		pos.coords.latitude,
+		pos.coords.longitude
+	));
+}
+
+function displayAndWatch(position) {
+	setCurrentPosition(position);
+	watchCurrentPosition();
+}
+
+function watchCurrentPosition() {
+	var positionTimer = navigator.geolocation.watchPosition(
+		function(position) {
+			setMarkerPosition(
+				currentPositionMarker,
+				position
+			);
+		});
+}
+
+function setMarkerPosition(marker, position) {
+	marker.setPosition(
+		new google.maps.LatLng(
+			position.coords.latitude,
+			position.coords.longitude)
+	);
+}
+
+function initLocationProcedure() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(displayAndWatch, locError);
+	} else {
+		alert("Your browser does not support the Geolocation API");
+	}
+}
+	';
+	
         if ($this->jsfile == "") {
             $this->output_js .= '
 			//]]>

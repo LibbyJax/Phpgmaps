@@ -2176,9 +2176,13 @@ function locError(error) {
 }
 
 function setCurrentPosition(pos) {
+	var firstRun = false;
 	if (typeof currentPositionMarker !== "undefined") {
 		currentPositionMarker.setMap(null);
+	} else {
+		firstRun = true;	
 	}
+	
 	currentPositionMarker = new google.maps.Marker({
 		map: map,
 		position: new google.maps.LatLng(
@@ -2205,10 +2209,12 @@ function setCurrentPosition(pos) {
   		strokeOpacity: 0.7
   	});
 	
-	/*map.panTo(new google.maps.LatLng(
-		pos.coords.latitude,
-		pos.coords.longitude
-	));*/
+	if (firstRun) {
+		map.panTo(new google.maps.LatLng(
+			pos.coords.latitude,
+			pos.coords.longitude
+		));
+	}
 }
 
 function displayAndWatch(position) {

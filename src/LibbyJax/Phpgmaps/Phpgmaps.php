@@ -2205,10 +2205,10 @@ function setCurrentPosition(pos) {
   		strokeOpacity: 0.7
   	});
 	
-	map.panTo(new google.maps.LatLng(
+	/*map.panTo(new google.maps.LatLng(
 		pos.coords.latitude,
 		pos.coords.longitude
-	));
+	));*/
 }
 
 function displayAndWatch(position) {

@@ -2176,6 +2176,9 @@ function locError(error) {
 }
 
 function setCurrentPosition(pos) {
+	if (typeof currentPositionMarker !== "undefined") {
+		currentPositionMarker.setMap(null);
+	}
 	currentPositionMarker = new google.maps.Marker({
 		map: map,
 		position: new google.maps.LatLng(
@@ -2187,6 +2190,10 @@ function setCurrentPosition(pos) {
 	});
 
 	var userLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);	
+	
+	if (typeof currentCircle !== "undefined") {
+		currentCircle.setMap(null);
+	}
 
 	currentCircle = new google.maps.Circle({
   		center: userLatLng,
@@ -2219,8 +2226,8 @@ function watchCurrentPosition() {
 		});
 }
 
-function setMarkerPosition(marker, position) {
-	marker.setPosition(
+function setMarkerPosition(userMarker, position) {
+	userMarker.setPosition(
 		new google.maps.LatLng(
 			position.coords.latitude,
 			position.coords.longitude)

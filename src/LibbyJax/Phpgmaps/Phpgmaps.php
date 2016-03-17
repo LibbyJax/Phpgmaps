@@ -2194,7 +2194,7 @@ function setCurrentPosition(pos) {
   		fillColor: "#99bbff",
   		fillOpacity: 0.5,
   		strokeColor: "#80aaff",
-  		strokeOpacity: 1.0
+  		strokeOpacity: 0.7
   	});
 	
 	map.panTo(new google.maps.LatLng(

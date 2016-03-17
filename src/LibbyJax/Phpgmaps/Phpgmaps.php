@@ -1148,6 +1148,7 @@ class Phpgmaps
 		var filter_markers = new Array();
 		var trafficLayer;
 		var userLatLng;
+		var currentPositionMarker, currentCircle;
 		';
         if ($this->cluster) {
             $this->output_js_contents .= 'var markerCluster;

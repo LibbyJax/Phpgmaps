@@ -2182,7 +2182,6 @@ function setCurrentPosition(pos) {
 	} else {
 		firstRun = true;	
 	}
-	
 	currentPositionMarker = new google.maps.Marker({
 		map: map,
 		position: new google.maps.LatLng(
@@ -2199,9 +2198,17 @@ function setCurrentPosition(pos) {
 		currentCircle.setMap(null);
 	}
 
+	var markerRadius = 0;
+	
+	if (pos.coords.accuracy > 800) {
+		markerRadius = 800;	
+	} else {
+		markerRadius = pos.coords.accuracy;
+	}
+
 	currentCircle = new google.maps.Circle({
   		center: userLatLng,
-  		radius: pos.coords.accuracy,
+  		radius: markerRadius,
   		map: map,
   		fillColor: "#99bbff",
   		fillOpacity: 0.5,

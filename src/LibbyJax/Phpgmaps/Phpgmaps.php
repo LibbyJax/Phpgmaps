@@ -2200,8 +2200,8 @@ function setCurrentPosition(pos) {
 
 	var markerRadius = 0;
 	
-	if (pos.coords.accuracy > 800) {
-		markerRadius = 800;	
+	if (pos.coords.accuracy > 400) {
+		markerRadius = 400;
 	} else {
 		markerRadius = pos.coords.accuracy;
 	}
@@ -2222,6 +2222,7 @@ function setCurrentPosition(pos) {
 			pos.coords.longitude
 		));
 	}
+	sendPositionUpdate(pos);
 }
 
 function displayAndWatch(position) {

@@ -1129,7 +1129,7 @@ class Phpgmaps
             if ($this->cluster) {
                 $this->output_js .= '
 
-			<script type="text/javascript" src="/public/plugins/googlemaps-markerclusterer/markerclusterer_compiled.js"></script >
+			<script type="text/javascript" src="/plugins/googlemaps-markerclusterer/markerclusterer_compiled.js"></script >
 					';
             }
         }

@@ -362,7 +362,7 @@ class Phpgmaps
             }
             $marker_output .= '
 			});
-			google.maps.event.addListener(marker_'.$marker_id.', "hover", function(event) {
+			google.maps.event.addListener(marker_'.$marker_id.', "mouseover", function(event) {
 				iw_'.$this->map_name.'.setContent(this.get("content"));
 				iw_'.$this->map_name.'.open('.$this->map_name.', this);
 			});

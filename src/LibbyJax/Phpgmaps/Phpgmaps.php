@@ -353,7 +353,11 @@ class Phpgmaps
 			google.maps.event.addListener(marker_'.$marker_id.', "click", function(event) {
 				iw_'.$this->map_name.'.setContent(this.get("content"));
 				iw_'.$this->map_name.'.open('.$this->map_name.', this);
+			google.maps.event.addListener(marker_'.$marker_id.', "hover", function(event) {
+				iw_'.$this->map_name.'.setContent(this.get("content"));
+				iw_'.$this->map_name.'.open('.$this->map_name.', this);
 			';
+			
             if ($marker['onclick'] != "") {
                 $marker_output .= $marker['onclick'].'
 			';

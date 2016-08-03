@@ -351,14 +351,12 @@ class Phpgmaps
 			marker_'.$marker_id.'.set("content", "'.$marker['infowindow_content'].'");
 
 			google.maps.event.addListener(marker_'.$marker_id.', "click", function(event) {
-				if (contentStringCal==infowindow.getContent()) {
+				if (this.get("content") == infowindow.getContent()) {
 					iw_'.$this->map_name.'.close('.$this->map_name.', this);
-					iw_'.$this->map_name.'.setContent('');
+					iw_'.$this->map_name.'.setContent("");
 				} else {
-					google.maps.event.trigger(this, 'mouseover');
+					google.maps.event.trigger(this, "mouseover");
 				}
-				//iw_'.$this->map_name.'.setContent(this.get("content"));
-				//iw_'.$this->map_name.'.open('.$this->map_name.', this);
 			';
 			
             if ($marker['onclick'] != "") {
@@ -368,7 +366,7 @@ class Phpgmaps
             $marker_output .= '
 			});
 			google.maps.event.addListener(marker_'.$marker_id.', "mouseover", function(event) {
-				if (contentStringCal != iw_'.$this->map_name.'.getContent()) {
+				if (this.get("content") != iw_'.$this->map_name.'.getContent()) {
 					iw_'.$this->map_name.'.setContent(this.get("content"));
 					iw_'.$this->map_name.'.open('.$this->map_name.', this);
 				}

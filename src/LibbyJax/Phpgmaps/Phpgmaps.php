@@ -351,7 +351,7 @@ class Phpgmaps
 			marker_'.$marker_id.'.set("content", "'.$marker['infowindow_content'].'");
 
 			google.maps.event.addListener(marker_'.$marker_id.', "click", function(event) {
-				if (this.get("content") == infowindow.getContent()) {
+				if (this.get("content") == iw_'.$this->map_name.'.getContent()) {
 					iw_'.$this->map_name.'.close('.$this->map_name.', this);
 					iw_'.$this->map_name.'.setContent("");
 				} else {

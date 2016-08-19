@@ -1181,6 +1181,7 @@ class Phpgmaps
         
         if ($this->spiderfy) {
         	$this->output_js_contents .= 'var oms;
+        		var gm = google.maps;
         		';
         }
         if ($this->directions) {
@@ -1399,10 +1400,10 @@ class Phpgmaps
 					zoomControlOptions: {'.implode(",", $zoomControlOptions).'}';
         }
 
-
         $this->output_js_contents .= '};';
 
-        $this->output_js_contents .=$this->map_name.' = new google.maps.Map(document.getElementById("'.$this->map_div_id.'"), myOptions);';
+        $this->output_js_contents .= '
+        	'.$this->map_name.' = new google.maps.Map(document.getElementById("'.$this->map_div_id.'"), myOptions);';
         
         if ($this->spiderfy) {
         	$this->output_js_contents .= 'oms = new OverlappingMarkerSpiderfier('.$this->map_name.');

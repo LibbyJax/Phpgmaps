@@ -1421,18 +1421,18 @@ class Phpgmaps
 				new gm.Point(10, 34)  // anchor - where to meet map location
 			);
 			
-        		oms.addListener('click', function(marker) {
+        		oms.addListener("click", function(marker) {
 				iw_'.$this->map_name.'.setContent(marker.desc);
 				iw_'.$this->map_name.'.open(map, marker);
 			});
-			oms.addListener('spiderfy', function(markers) {
+			oms.addListener("spiderfy", function(markers) {
 				for(var i = 0; i < markers.length; i ++) {
 					markers[i].setIcon(iconWithColor(spiderfiedColor));
 					markers[i].setShadow(null);
 				} 
 				iw_'.$this->map_name.'.close();
 			});
-			oms.addListener('unspiderfy', function(markers) {
+			oms.addListener("unspiderfy", function(markers) {
 				for(var i = 0; i < markers.length; i ++) {
 					markers[i].setIcon(iconWithColor(usualColor));
 					markers[i].setShadow(shadow);

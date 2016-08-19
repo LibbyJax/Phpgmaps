@@ -1408,8 +1408,8 @@ class Phpgmaps
         	$this->output_js_contents .= 'oms = new OverlappingMarkerSpiderfier('.$this->map_name.');
         		';
         	$this->output_js_contents .= '
-			var usualColor = 'eebb22';
-			var spiderfiedColor = 'ffee22';
+			var usualColor = "eebb22";
+			var spiderfiedColor = "ffee22";
 			var iconWithColor = function(color) {
 				return "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|+|" +
 					color + "|000000|ffff00";

@@ -1396,7 +1396,7 @@ class Phpgmaps
         	$this->output_js_contents .= 'oms = new OverlappingMarkerSpiderfier('.$this->map_name.', {
         	keepSpiderfied: true,
         	markersWontMove: true,
-        	markersWontHide: true);
+        	markersWontHide: true});
         		';
         	$this->output_js_contents .= '
 			var usualColor = "eebb22";

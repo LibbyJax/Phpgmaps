@@ -348,37 +348,24 @@ class Phpgmaps
 
 
         if ($marker['infowindow_content'] != "") {
+		// Escape any quotes in the event that HTML is being added to the infowindow
+		$marker['infowindow_content'] = str_replace('\"', '"', $marker['infowindow_content']);
+		$marker['infowindow_content'] = str_replace('"', '\"', $marker['infowindow_content']);
 
-            // Escape any quotes in the event that HTML is being added to the infowindow
-            $marker['infowindow_content'] = str_replace('\"', '"', $marker['infowindow_content']);
-            $marker['infowindow_content'] = str_replace('"', '\"', $marker['infowindow_content']);
-
-            $marker_output .= '
+		$marker_output .= '
 			marker_'.$marker_id.'.set("content", "'.$marker['infowindow_content'].'");
-
 			google.maps.event.addListener(marker_'.$marker_id.', "click", function(event) {
-				if (this.get("content") == iw_'.$this->map_name.'.getContent()) {
-					iw_'.$this->map_name.'.close('.$this->map_name.', this);
-					iw_'.$this->map_name.'.setContent("");
-				} else {
-					google.maps.event.trigger(this, "mouseover");
-				}
+				iw_'.$this->map_name.'.setContent(this.get("content"));
+				iw_'.$this->map_name.'.open('.$this->map_name.', this);
 			';
-			
-            if ($marker['onclick'] != "") {
-                $marker_output .= $marker['onclick'].'
+		if ($marker['onclick'] != "") {
+			$marker_output .= $marker['onclick'].'
 			';
-            }
-            $marker_output .= '
+		}
+		$marker_output .= '
 			});
-			google.maps.event.addListener(marker_'.$marker_id.', "mouseover", function(event) {
-				if (this.get("content") != iw_'.$this->map_name.'.getContent()) {
-					iw_'.$this->map_name.'.setContent(this.get("content"));
-					iw_'.$this->map_name.'.open('.$this->map_name.', this);
-				}
-			});
-		';
-        } else {
+			';
+	} else {
             if ($marker['onclick'] != "") {
                 $marker_output .= '
 				google.maps.event.addListener(marker_'.$marker_id.', "click", function(event) {

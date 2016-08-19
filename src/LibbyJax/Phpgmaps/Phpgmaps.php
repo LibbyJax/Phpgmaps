@@ -1393,7 +1393,10 @@ class Phpgmaps
         	'.$this->map_name.' = new google.maps.Map(document.getElementById("'.$this->map_div_id.'"), myOptions);';
         
         if ($this->spiderfy) {
-        	$this->output_js_contents .= 'oms = new OverlappingMarkerSpiderfier('.$this->map_name.');
+        	$this->output_js_contents .= 'oms = new OverlappingMarkerSpiderfier('.$this->map_name.', {
+        	keepSpiderfied: true,
+        	markersWontMove: true,
+        	markersWontHide: true);
         		';
         	$this->output_js_contents .= '
 			var usualColor = "eebb22";

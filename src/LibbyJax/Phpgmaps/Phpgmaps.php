@@ -1427,17 +1427,17 @@ class Phpgmaps
 				iw_'.$this->map_name.'.open(map, marker);
 			});
 			oms.addListener("spiderfy", function(markers) {
-				for(var i = 0; i < markers.length; i ++) {
+				/*for(var i = 0; i < markers.length; i ++) {
 					markers[i].setIcon(iconWithColor(spiderfiedColor));
 					markers[i].setShadow(null);
-				} 
+				}*/
 				iw_'.$this->map_name.'.close();
 			});
 			oms.addListener("unspiderfy", function(markers) {
-				for(var i = 0; i < markers.length; i ++) {
+				/*for(var i = 0; i < markers.length; i ++) {
 					markers[i].setIcon(iconWithColor(usualColor));
 					markers[i].setShadow(shadow);
-				}
+				}*/
 			});
 		';
         }

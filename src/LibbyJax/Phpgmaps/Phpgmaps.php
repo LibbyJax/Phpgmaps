@@ -333,7 +333,12 @@ class Phpgmaps
 		filter_markers.push(marker_'.$marker_id.');
 		';
 	}
-		
+	if ($this->spiderfy) {
+		$marker_output .= '
+			oms.addMarker(marker_'.$marker_id.');
+			';
+	}
+
 	if ($marker['data_id']!="") {
 		$marker_output.= '
 		marker_'.$marker_id.'.dataID = \''.$marker['data_id'].'\';
@@ -454,11 +459,6 @@ class Phpgmaps
 					'.$marker['ondragstart'].'
 				});
 				';
-            }
-            if ($this->spiderfy) {
-            	$marker_output .= '
-            			oms.addMarker(marker_'.$marker_id.');
-            			';
             }
         }
 

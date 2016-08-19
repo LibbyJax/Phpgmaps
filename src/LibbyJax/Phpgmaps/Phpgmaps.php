@@ -25,6 +25,7 @@ class Phpgmaps
     public $clusterAverageCenter = false;                    // Whether the center of each cluster should be the average of all markers in the cluster
     public $clusterMinimumClusterSize = 2;                        // The minimum number of markers to be in a cluster before the markers are hidden and a count is shown
     public $clusterStyles = []; 				// (object) An array that has style properties: *  'url': (string) The image url. *  'height': (number) The image height. *  'width': (number) The image width. *  'anchor': (Array) The anchor position of the label text. *  'textColor': (string) The text color. *  'textSize': (number) The text size. *  'backgroundPosition': (string) The position of the backgound x, y.
+    public $spiderfy = false;			// Whether to enable spiderfy for overlapping markers
     public $disableDefaultUI = false;                    // If set to TRUE will hide the default controls (ie. zoom, scale etc)
     public $disableDoubleClickZoom = false;                    // If set to TRUE will disable zooming when a double click occurs
     public $disableMapTypeControl = false;                    // If set to TRUE will hide the MapType control (ie. Map, Satellite, Hybrid, Terrain)
@@ -453,6 +454,11 @@ class Phpgmaps
 					'.$marker['ondragstart'].'
 				});
 				';
+            }
+            if ($this->spiderfy) {
+            	$marker_output .= '
+            			oms.addMarker(marker_'.$marker_id.');
+            			';
             }
         }
 
@@ -1143,6 +1149,13 @@ class Phpgmaps
 			<script type="text/javascript" src="/plugins/googlemaps-markerclusterer/markerclusterer.js"></script >
 					';
             }
+            
+            if ($this->spiderfy) {
+                $this->output_js .= '
+
+			<script type="text/javascript" src="/plugins/googlemaps-spiderfy/oms.min.js"></script >
+					';
+            }
         }
         if ($this->jsfile == "") {
             $this->output_js .= '
@@ -1162,8 +1175,13 @@ class Phpgmaps
 		var currentPositionMarker, currentCircle;
 		';
         if ($this->cluster) {
-            $this->output_js_contents .= 'var markerCluster;
+        	$this->output_js_contents .= 'var markerCluster;
 			';
+        }
+        
+        if ($this->spiderfy) {
+        	$this->output_js_contents .= 'var oms;
+        		';
         }
         if ($this->directions) {
             $rendererOptions = '';
@@ -1385,6 +1403,43 @@ class Phpgmaps
         $this->output_js_contents .= '};';
 
         $this->output_js_contents .=$this->map_name.' = new google.maps.Map(document.getElementById("'.$this->map_div_id.'"), myOptions);';
+        
+        if ($this->spiderfy) {
+        	$this->output_js_contents .= 'oms = new OverlappingMarkerSpiderfier('.$this->map_name.');
+        		';
+        	$this->output_js_contents .= '
+			var usualColor = 'eebb22';
+			var spiderfiedColor = 'ffee22';
+			var iconWithColor = function(color) {
+				return "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|+|" +
+					color + "|000000|ffff00";
+      			}
+			var shadow = new gm.MarkerImage(
+				"https://www.google.com/intl/en_ALL/mapfiles/shadow50.png",
+				new gm.Size(37, 34),  // size   - for sprite clipping
+				new gm.Point(0, 0),   // origin - ditto
+				new gm.Point(10, 34)  // anchor - where to meet map location
+			);
+			
+        		oms.addListener('click', function(marker) {
+				iw_'.$this->map_name.'.setContent(marker.desc);
+				iw_'.$this->map_name.'.open(map, marker);
+			});
+			oms.addListener('spiderfy', function(markers) {
+				for(var i = 0; i < markers.length; i ++) {
+					markers[i].setIcon(iconWithColor(spiderfiedColor));
+					markers[i].setShadow(null);
+				} 
+				iw_'.$this->map_name.'.close();
+			});
+			oms.addListener('unspiderfy', function(markers) {
+				for(var i = 0; i < markers.length; i ++) {
+					markers[i].setIcon(iconWithColor(usualColor));
+					markers[i].setShadow(shadow);
+				}
+			});
+		';
+        }
 
         if ($styleOutput != "") {
             $this->output_js_contents .= $styleOutput.'

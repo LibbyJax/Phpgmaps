@@ -181,8 +181,9 @@ class Phpgmaps
         $marker['infowindow_content'] = '';                        // If not blank, creates an infowindow (aka bubble) with the content provided. Can be plain text or HTML
         $marker['id'] = '';                                        // The unique identifier of the marker suffix (ie. marker_yourID). If blank, this will default to marker_X where X is an incremental number
 	$marker['filter_category'] = '';		// Defines filtering category to assign to created marker - MLibby 11-11-2013
-	$marker['data_id'] = '';// Defines data ID number assigned to the created marker - MLibby 12-31-2013
-        $marker['clickable'] = true;                            // Defines if the marker is clickable
+	$marker['data_id'] = '';			// Defines data ID number assigned to the created marker - MLibby 12-31-2013
+	$marker['data_json'] = '';			// Defines data JSON set assigned to created marker - MLibby 01-31-2017
+        $marker['clickable'] = true;                    	// Defines if the marker is clickable
         $marker['cursor'] = '';                                    // The name or url of the cursor to display on hover
         $marker['draggable'] = false;                            // Defines if the marker is draggable
         $marker['flat'] = false;                                // If set to TRUE will not display a shadow beneath the icon
@@ -344,6 +345,7 @@ class Phpgmaps
 		marker_'.$marker_id.'.dataID = \''.$marker['data_id'].'\';
 		';
 	}
+	 
 	// End data points code changes
 
 

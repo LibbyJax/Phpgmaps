@@ -345,6 +345,11 @@ class Phpgmaps
 		marker_'.$marker_id.'.dataID = \''.$marker['data_id'].'\';
 		';
 	}
+	if ($marker['data_json']!="") {
+		$marker_output.= '
+		marker_'.$marker_id.'.dataJSON = \''.$marker['data_json'].'\';
+		';
+	}
 	 
 	// End data points code changes
 

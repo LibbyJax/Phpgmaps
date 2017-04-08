@@ -767,6 +767,7 @@ class Phpgmaps
         $circle['onmouseup'] = '';                                // JavaScript performed when a mouseup event occurs on a circle
         $circle['onrightclick'] = '';                            // JavaScript performed when a right-click occurs on a circle
         $circle['zIndex'] = '';                                    // The zIndex of the circle. If two circles overlap, the circle with the higher zIndex will appear on top
+        $circle['circleID'] = count($this->circles);
 
         $circle_output = '';
 
@@ -813,61 +814,61 @@ class Phpgmaps
             }
             $circle_output .= '
 				};
-				var circle_'.count($this->circles).' = new google.maps.Circle(circleOptions);
+				var circle_'.$circle['circleID'].' = new google.maps.Circle(circleOptions);
 			';
 
             if ($circle['onclick'] != "") {
                 $circle_output .= '
-				google.maps.event.addListener(circle_'.count($this->circles).', "click", function() {
+				google.maps.event.addListener(circle_'.$circle['circleID'].', "click", function() {
 					'.$circle['onclick'].'
 				});
 				';
             }
             if ($circle['ondblclick'] != "") {
                 $circle_output .= '
-				google.maps.event.addListener(circle_'.count($this->circles).', "dblclick", function() {
+				google.maps.event.addListener(circle_'.$circle['circleID'].', "dblclick", function() {
 					'.$circle['ondblclick'].'
 				});
 				';
             }
             if ($circle['onmousedown'] != "") {
                 $circle_output .= '
-				google.maps.event.addListener(circle_'.count($this->circles).', "mousedown", function() {
+				google.maps.event.addListener(circle_'.$circle['circleID'].', "mousedown", function() {
 					'.$circle['onmousedown'].'
 				});
 				';
             }
             if ($circle['onmousemove'] != "") {
                 $circle_output .= '
-				google.maps.event.addListener(circle_'.count($this->circles).', "mousemove", function() {
+				google.maps.event.addListener(circle_'.$circle['circleID'].', "mousemove", function() {
 					'.$circle['onmousemove'].'
 				});
 				';
             }
             if ($circle['onmouseout'] != "") {
                 $circle_output .= '
-				google.maps.event.addListener(circle_'.count($this->circles).', "mouseout", function() {
+				google.maps.event.addListener(circle_'.$circle['circleID'].', "mouseout", function() {
 					'.$circle['onmouseout'].'
 				});
 				';
             }
             if ($circle['onmouseover'] != "") {
                 $circle_output .= '
-				google.maps.event.addListener(circle_'.count($this->circles).', "mouseover", function() {
+				google.maps.event.addListener(circle_'.$circle['circleID'].', "mouseover", function() {
 					'.$circle['onmouseover'].'
 				});
 				';
             }
             if ($circle['onmouseup'] != "") {
                 $circle_output .= '
-				google.maps.event.addListener(circle_'.count($this->circles).', "mouseup", function() {
+				google.maps.event.addListener(circle_'.$circle['circleID'].', "mouseup", function() {
 					'.$circle['onmouseup'].'
 				});
 				';
             }
             if ($circle['onrightclick'] != "") {
                 $circle_output .= '
-				google.maps.event.addListener(circle_'.count($this->circles).', "rightclick", function() {
+				google.maps.event.addListener(circle_'.$circle['circleID'].', "rightclick", function() {
 					'.$circle['onrightclick'].'
 				});
 				';
@@ -1127,6 +1128,7 @@ class Phpgmaps
             }
             if ($this->drawing) {
                 array_push($libraries, 'drawing');
+                array_push($libraries, 'geometry');
             }
             if (count($libraries)) {
                 $apiLocation .= '&libraries='.implode(",", $libraries);
@@ -1589,9 +1591,9 @@ class Phpgmaps
             if ($this->drawingControlPosition == '') {
                 $this->drawingControlPosition = 'TOP_CENTER';
             }
-
+            //google.maps.drawing.OverlayType.'.strtoupper($this->drawingDefaultMode).',
             $this->output_js_contents .= 'drawingManager = new google.maps.drawing.DrawingManager({
-				drawingMode: google.maps.drawing.OverlayType.'.strtoupper($this->drawingDefaultMode).',
+				drawingMode: null,
   				drawingControl: '.(!$this->drawingControl ? 'false' : 'true').',
   				drawingControlOptions: {
   					position: google.maps.ControlPosition.'.strtoupper($this->drawingControlPosition);
@@ -1622,7 +1624,7 @@ class Phpgmaps
 			';
 
             $this->output_js_contents .= '
-			google.maps.event.addListener(drawingManager, "overlaycomplete", function(event) {
+            google.maps.event.addListener(drawingManager, "overlaycomplete", function(event) {
 				var newShape = event.overlay;
 				newShape.type = event.type;
 				';
